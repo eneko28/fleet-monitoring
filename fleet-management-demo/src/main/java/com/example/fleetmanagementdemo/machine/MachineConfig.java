@@ -12,8 +12,8 @@ public class MachineConfig {
     @Bean
     CommandLineRunner commandLineRunner(MachineRepository machineRepository){
         return args ->{
-			Machine zurich = new Machine(1,"Zurich");
-            Machine thalwil = new Machine(1,"Thalwil");
+			Machine zurich = new Machine(112L,1,"Zurich");
+            Machine thalwil = new Machine(358L,1,"Thalwil");
             machineRepository.saveAll(List.of(zurich,thalwil));
         };
     }
