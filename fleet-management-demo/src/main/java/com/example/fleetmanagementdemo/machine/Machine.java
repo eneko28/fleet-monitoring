@@ -1,6 +1,28 @@
 package com.example.fleetmanagementdemo.machine;
 
+import org.hibernate.annotations.Table;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+
+@Entity
+@Table(appliesTo = "machine")
 public class Machine {
+
+    @Id
+    @SequenceGenerator(
+        name = "machine_sequence",
+        sequenceName = "machine_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "machine_sequence"
+    )
+    
     private Long id;
     private int version;
     private String location;
