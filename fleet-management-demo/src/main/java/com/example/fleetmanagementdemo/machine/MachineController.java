@@ -43,7 +43,7 @@ public class MachineController {
     public void updateMachine(
         @PathVariable("machineId") Long machineId,
         @RequestParam(required = false) String location,
-        @RequestParam(required = false) int version ){
+        @RequestParam(required = false) String version ){
             machineService.updateMachine(machineId,location,version);
         }
 }

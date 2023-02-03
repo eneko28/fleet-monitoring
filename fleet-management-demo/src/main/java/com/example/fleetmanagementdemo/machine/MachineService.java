@@ -39,10 +39,10 @@ public class MachineService {
     }
 
     @Transactional
-    public void updateMachine(Long machineId, String location, int version) {
+    public void updateMachine(Long machineId, String location, String version) {
         Machine machine = machineRepository.findById(machineId)
             .orElseThrow(()->new IllegalStateException("machine with id " + machineId + " does not exists"));
-    
+        
         if(location != null && location.length() > 0 && !Objects.equals(machine.getLocation(), location)){
             Optional<Machine> optionalMachine = machineRepository.findMachineByLocation(location);
             if(optionalMachine.isPresent()){
@@ -50,9 +50,12 @@ public class MachineService {
             }
             machine.setLocation(location);
         }
-
-        if(version > 0){
-            machine.setVersion(version);
+        try{
+            if(version != null && Integer.valueOf(version) > 0){
+                machine.setVersion(Integer.valueOf(version));
+            }
+        }catch(Exception e){
+            throw new IllegalStateException("Cannot parse version value: " + version);
         }
     }   
     
