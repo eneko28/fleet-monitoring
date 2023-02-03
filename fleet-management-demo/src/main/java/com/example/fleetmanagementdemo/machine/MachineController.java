@@ -29,6 +29,11 @@ public class MachineController {
         return machineService.getMachines();
     }
 
+    @GetMapping(path = "{machineId}")
+    public Machine getMachineWithId(@PathVariable("machineId") Long machineId){
+        return machineService.getMachineWithId(machineId);
+    }
+
     @PostMapping()
     public void registerNewMachine(@RequestBody Machine machine){
         machineService.addNewMachine(machine);

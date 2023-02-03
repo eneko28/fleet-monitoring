@@ -22,6 +22,12 @@ public class MachineService {
 		return machineRepository.findAll();
 	}
 
+    public Machine getMachineWithId(Long machineId) {
+        Machine machine = machineRepository.findById(machineId)
+            .orElseThrow(()->new IllegalStateException("machine with id " + machineId + " does not exists"));
+        return machine;
+    }   
+
     public void addNewMachine(Machine machine) {
         Optional<Machine> machineByLocation = machineRepository.findMachineByLocation(machine.getLocation());
         if(machineByLocation.isPresent()){
@@ -57,6 +63,5 @@ public class MachineService {
         }catch(Exception e){
             throw new IllegalStateException("Cannot parse version value: " + version);
         }
-    }   
-    
+    }
 }
