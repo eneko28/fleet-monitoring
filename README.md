@@ -12,3 +12,6 @@ docker compose up -d && docker attach test
 
 ## Expected result
 When running this fleet-monitoring demo the user will interact with the test application. The user shall only see the CLI connected to the test application.
+
+### Note
+In the current backend implementation, two machines cannot be in the same location. Therefore, the backend application (not the database) will reject any query setting a machine's location to a value that has already been assigned to another machine. This is an intended behavior.
