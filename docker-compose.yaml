@@ -1,0 +1,50 @@
+version: '3.3'
+services:
+  backend:
+    build: fleet-management-demo
+    container_name: backend
+    ports:
+      - 8080:8080
+    environment:
+      - POSTGRES_DB=machine
+    networks:
+      - spring-postgres
+    healthcheck:
+        test: "curl -f http://backend:8080/api/v1/machine"
+        interval: 5s
+        timeout: 5s
+        retries: 5
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init.sh:/docker-entrypoint-initdb.d/create_tables.sh
+    networks:
+      - spring-postgres
+    environment:
+      - POSTGRES_DB=fleet_management
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    expose:
+      - 5432
+  test:
+    build: fleet-management-test
+    container_name: test
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - spring-postgres
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
+networks:
+  spring-postgres:
