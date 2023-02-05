@@ -2,7 +2,7 @@ import requests
 import random
 
 # The url of the backend REST API
-api_url = "http://localhost:8080/api/v1/machine"
+api_url = "http://backend:8080/api/v1/machine"
 # The list of IDs that will be used for the test
 id_list = [112, 358, 132, 134]
 
@@ -43,7 +43,7 @@ while val != "e":
     # Ask the user if they want to continue testing the backend or not
     # Press touch e to exit, any other to continue
     print()
-    val = input('Press e to exit, any other touch to continue testing... ')
+    val = input('> Press e to exit, any other touch to continue testing... ')
     print()
     print()
 
